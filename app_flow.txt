@@ -1,0 +1,18 @@
+start at /
+
+"Shop Now" button --> /melons
+
+/melons
+- can see all the melon 
+- click on the details --> details page of specific melon (ex: crenshaw melon pic --> DEFAULT MELON DETAIL PAGE /cren, /alib)
+
+/[melon_code]
+the url changes by the melon, but the content is the same
+- shows price
+- "Add to cart" button (NEEDS TO BE IMPLEMENTED (flash message?))
+
+TO FIX
+- logo at top doesn't take you home
+- my melon cart takes you the default cart
+- checkout button ("checkout will be implemented in the future" flash message, takes you to the melons page)
+- log in is empty link
