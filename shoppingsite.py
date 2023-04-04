@@ -87,13 +87,14 @@ def add_to_cart(melon_id):
     # - redirect the user to the cart page
 
 
-    return render_template("cart.html")
+    return redirect("/cart")
 
 
 @app.route("/cart")
 def show_shopping_cart():
     """Display content of shopping cart."""
 
+    session['cart'] = session.get('cart',{})
     cart = session['cart']
     
     melons_list = []

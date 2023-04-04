@@ -4,7 +4,7 @@
    Everything is centered and in white. */
 
 body {
-  background: #333 url('/static/img/homepage-background.jpg');
+  background: #333 url("/static/img/homepage-background.jpg");
   background-size: cover;
 
   color: white;

@@ -1,4 +1,8 @@
-{% extends 'base.html' %} {% block body %} {% if melons_list %}
+{% extends 'base.html' %} {% block body %}
+
+<a href="melons">&#x2190; Continue shopping</a>
+
+{% if melons_list %}
 <table class="table table-striped mt-3">
   <thead>
     <tr>
@@ -20,7 +24,10 @@
   </tbody>
 </table>
 
-<h3>Total: ${{ total }}</h3>
+<h3>Total: {{ "$%.2f"|format(total) }}</h3>
+
+{% else %}
+<p>Your cart is empty!</p>
 {% endif %}
 
 <a href="/checkout" class="btn btn-large btn-primary">Check Out</a>
