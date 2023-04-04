@@ -63,29 +63,12 @@ def add_to_cart(melon_id):
     page and display a confirmation message: 'Melon successfully added to
     cart'."""
 
-    # - check if a "cart" exists in the session, and create one (an empty
-    #   dictionary keyed to the string "cart") if not
-    # WAY 1
-    # if cart in session:
-    #     cart = session['cart']
-    # else:
-    #     session['cart'] = {}
-    #     cart = session['cart']
-
-    # WAY 2
-    session['cart'] = session.get('cart',{})
-    cart = session['cart']
+    cart = session.setdefault("cart", {})
     
-
-    # - check if the desired melon id is the cart, and if not, put it in
-    # - increment the count for that melon id by 1
     cart[melon_id] = cart.get(melon_id, 0) + 1
 
-    # - flash a success message
     melon = melons.get_by_id(melon_id).common_name
     flash(f'One {melon} was added to your cart!')
-    # - redirect the user to the cart page
-
 
     return redirect("/cart")
 
@@ -94,22 +77,22 @@ def add_to_cart(melon_id):
 def show_shopping_cart():
     """Display content of shopping cart."""
 
-    session['cart'] = session.get('cart',{})
-    cart = session['cart']
+    cart = session.get("cart", {})
     
-    melons_list = []
-    total = 0
+    cart_melons = []
+    order_total = 0
 
-    for item in cart:
-        melon = melons.get_by_id(item)
-        melon.qty = cart[item]
-        melons_list.append(melon)
-        total += melon.qty * melon.price
-    
-    print(melons_list)
-    print(total)
-    # return render_template("cart.html", melons_list=melons_list, total=total)
-    return render_template("cart.html", melons_list=melons_list, total=total)
+    for melon_id, qty in cart.items():
+        melon = melons.get_by_id(melon_id)
+        total_cost = qty * melon.price
+        order_total += total_cost
+
+        melon.qty = qty
+        melon.total_cost = total_cost
+
+        cart_melons.append(melon)
+
+    return render_template("cart.html", cart_melons=cart_melons, order_total=order_total)
 
 
 @app.route("/login", methods=["GET"])
