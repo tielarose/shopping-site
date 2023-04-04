@@ -49,9 +49,8 @@ def show_melon(melon_id):
 
     Show all info about a melon. Also, provide a button to buy that melon.
     """
-
     melon = melons.get_by_id(melon_id)
-    print(melon)
+
     return render_template("melon_details.html",
                            display_melon=melon)
 
@@ -95,25 +94,19 @@ def add_to_cart(melon_id):
 def show_shopping_cart():
     """Display content of shopping cart."""
 
-  
     cart = session['cart']
     print('*'*20)
     
-    melon_list = []
+    melons_list = []
     total = 0
 
-    for melon in cart:
-        name = melons.get_by_id(melon).common_name
-        qty = cart[melon]
-        price = melons.get_by_id(melon).price
-        total += qty * price
-        melon_dict = {'name': name,
-                      'qty': qty,
-                      'price': price}
-        melon_list.append(melon_dict)
+    for item in cart:
+        melon = melons.get_by_id(item)
+        melon.qty = cart[item]
+        melons_list.append(melon)
+        total += melon.qty * melon.price
     
-
-    return render_template("cart.html", melon_list=melon_list)
+    return render_template("cart.html", melons_list=melons_list)
 
 
 @app.route("/login", methods=["GET"])
