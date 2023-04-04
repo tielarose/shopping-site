@@ -95,7 +95,6 @@ def show_shopping_cart():
     """Display content of shopping cart."""
 
     cart = session['cart']
-    print('*'*20)
     
     melons_list = []
     total = 0
@@ -106,7 +105,10 @@ def show_shopping_cart():
         melons_list.append(melon)
         total += melon.qty * melon.price
     
-    return render_template("cart.html", melons_list=melons_list)
+    print(melons_list)
+    print(total)
+    # return render_template("cart.html", melons_list=melons_list, total=total)
+    return render_template("cart.html", melons_list=melons_list, total=total)
 
 
 @app.route("/login", methods=["GET"])
